@@ -1,0 +1,36 @@
+<project name="JavaProject" basedir="." default="test">
+
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="lib.dir" value="lib"/>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false">
+            <classpath>
+                <fileset dir="${lib.dir}" includes="**/*.jar"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="test" depends="compile">
+        <junit printsummary="true" haltonfailure="true">
+            <classpath>
+                <pathelement path="${classes.dir}"/>
+                <fileset dir="${lib.dir}" includes="**/*.jar"/>
+            </classpath>
+            <batchtest>
+                <fileset dir="${src.dir}">
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+            <formatter type="plain" usefile="false"/>
+        </junit>
+    </target>
+
+</project>
