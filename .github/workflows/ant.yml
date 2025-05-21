@@ -29,7 +29,7 @@ jobs:
         run: |
           mkdir -p build/classes
           find src -name "*.java" > sources.txt
-          javac -d build/classes @sources.txt
+          javac -cp lib/junit-platform-console-standalone-1.9.3.jar -d build/classes @sources.txt
 
       - name: Run JUnit 5 tests
         run: |
